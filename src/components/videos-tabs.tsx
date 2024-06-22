@@ -17,7 +17,7 @@ export default function VideosTabs({ userId }: VideosTabsProps) {
 
   return (
     <Tabs onValueChange={setTab} defaultValue="published">
-      <TabsList className="w-full justify-start">
+      <TabsList className="w-full justify-start bg-slate-200">
         <TabsTrigger value="published">Published</TabsTrigger>
         <TabsTrigger value="scheduled">Scheduled</TabsTrigger>
         <TabsTrigger value="archived">Archived</TabsTrigger>
@@ -28,7 +28,7 @@ export default function VideosTabs({ userId }: VideosTabsProps) {
           empty={!isLoading && videos.length === 0}
           emptyMessage="No published videos."
         >
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {videos.map((video) => (
               <VideoDisplay key={video.id} video={video} />
             ))}

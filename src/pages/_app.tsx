@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import type { AppProps } from 'next/app'
+import { Toaster } from '@/components/ui/toaster'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import '@/styles/globals.css'
 
@@ -16,6 +17,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <main className={`flex min-h-screen flex-col ${inter.className}`}>
         <Component {...pageProps} />
       </main>
+      <Toaster />
     </QueryClientProvider>
   )
 }
