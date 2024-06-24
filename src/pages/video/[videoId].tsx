@@ -16,9 +16,8 @@ export default function VideoPage({
   ytVideoId: string | null
 }) {
   return (
-    <div className="p-4 py-8 mx-auto max-w-6xl w-full flex flex-col gap-8">
-      <h1 className="text-4xl font-bold">{title}</h1>
-      <div className="flex-col sm:flex-row flex gap-4">
+    <div className="p-4 py-8 mx-auto max-w-6xl w-full flex flex-col gap-8 h-full">
+      <div className="flex-col sm:flex-row flex gap-4 flex-1">
         <div className="w-full sm:w-[60%] flex flex-col gap-4">
           <div className="aspect-video">
             {ytVideoId && (
@@ -33,9 +32,10 @@ export default function VideoPage({
               />
             )}
           </div>
-          <p>{description}</p>
+          <h1 className="text-4xl font-bold">{title}</h1>
+          <p className="break-words">{description}</p>
         </div>
-        <div className="flex-1">
+        <div className="flex-1 h-full">
           <CommentsSection videoId={videoId} />
         </div>
       </div>

@@ -6,6 +6,7 @@ import '@/styles/globals.css'
 
 import { Inter } from 'next/font/google'
 import Header from '@/components/header'
+import { UserProvider } from '@/data/user'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -13,11 +14,15 @@ export default function App({ Component, pageProps }: AppProps) {
   const [queryClient] = useState(() => new QueryClient())
   return (
     <QueryClientProvider client={queryClient}>
-      <Header />
-      <main className={`flex min-h-screen flex-col ${inter.className}`}>
-        <Component {...pageProps} />
-      </main>
-      <Toaster />
+      <UserProvider>
+        <Header />
+        <main
+          className={`flex h-[calc(100vh-64px)] flex-col ${inter.className}`}
+        >
+          <Component {...pageProps} />
+        </main>
+        <Toaster />
+      </UserProvider>
     </QueryClientProvider>
   )
 }

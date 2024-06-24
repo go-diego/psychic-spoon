@@ -3,12 +3,14 @@ import { useToast } from '@/components/ui/use-toast'
 import { Button } from './ui/button'
 import { Textarea } from './ui/textarea'
 import { usePostComment } from '@/data/videos'
+import { useUser } from '@/data/user'
 
 type CommentInputProps = {
   videoId: string
 }
 
 export default function CommentInput({ videoId }: CommentInputProps) {
+  const { user, isLoggedIn } = useUser()
   const { toast } = useToast()
   const [text, setText] = useState('')
   const textAreaRef = useRef<HTMLTextAreaElement | null>(null)
@@ -31,7 +33,9 @@ export default function CommentInput({ videoId }: CommentInputProps) {
   const { mutate: postComment } = usePostComment(onSuccess, onError)
 
   const handlePostComment = () => {
-    postComment({ content: text, video_id: videoId, user_id: 'go_diego' })
+    if (user.id) {
+      postComment({ content: text, video_id: videoId, user_id: user.id })
+    }
   }
 
   useEffect(() => {
@@ -57,8 +61,8 @@ export default function CommentInput({ videoId }: CommentInputProps) {
         cols={1}
         className="min-h-0 resize-none overflow-hidden"
       />
-      <Button disabled={!text} onClick={handlePostComment}>
-        Post Comment
+      <Button disabled={!isLoggedIn || !text} onClick={handlePostComment}>
+        {isLoggedIn ? 'Post Comment' : 'Log in to comment'}
       </Button>
     </div>
   )

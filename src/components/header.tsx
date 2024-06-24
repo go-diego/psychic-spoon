@@ -1,8 +1,11 @@
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import { CircleUser } from 'lucide-react'
+import LoginDialog from './login-dialog'
+import { useUser } from '@/data/user'
 
 const Header = () => {
+  const { user, isLoggedIn } = useUser()
   return (
     <header className="py-3 sticky top-0 z-50 bg-slate-200 shadow-md">
       <div className="flex justify-between container mx-auto w-full items-center">
@@ -13,12 +16,15 @@ const Header = () => {
           <nav>
             <ul className="flex gap-2">
               <li>
-                <Button asChild>
-                  {/* TODO: use localstorage for saving a "logged in" user */}
-                  <Link href="/profile/diego_bernal">
-                    <CircleUser />
-                  </Link>
-                </Button>
+                {isLoggedIn ? (
+                  <Button asChild>
+                    <Link href={`/profile/${user.id}`}>
+                      <CircleUser />
+                    </Link>
+                  </Button>
+                ) : (
+                  <LoginDialog trigger={<Button>Log in</Button>} />
+                )}
               </li>
             </ul>
           </nav>

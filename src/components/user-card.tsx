@@ -1,12 +1,14 @@
 import { Button } from '@/components/ui/button'
-import { User } from '@/data/user'
+import { useUser } from '@/data/user'
 import UploadVideoDialog from './upload-video-dialog'
 
 type UserCardProps = {
-  user: User
+  userId: string
 }
 
-export default function UserCard({ user: { id, name } }: UserCardProps) {
+export default function UserCard({ userId }: UserCardProps) {
+  const { user, isLoggedIn, logout } = useUser()
+  const isOwner = isLoggedIn && user.id === userId
   return (
     <div className="flex gap-4">
       <img
@@ -15,13 +17,22 @@ export default function UserCard({ user: { id, name } }: UserCardProps) {
       />
       <div className="flex flex-col gap-1 justify-between">
         <div className="flex flex-col gap-1">
-          <h1 className="text-3xl font-bold">{name}</h1>
-          <p className="text-muted-foreground">User ID: {id}</p>
+          <h1 className="text-3xl font-bold">{isOwner ? user.name : userId}</h1>
+          {isOwner && (
+            <>
+              <p className="text-muted-foreground">User ID: {userId}</p>
+              <Button variant="outline" onClick={logout}>
+                Logout
+              </Button>
+            </>
+          )}
         </div>
-        <UploadVideoDialog
-          userId={id}
-          trigger={<Button size="sm">Upload Video</Button>}
-        />
+        {isOwner && userId && (
+          <UploadVideoDialog
+            userId={userId}
+            trigger={<Button size="sm">Upload Video</Button>}
+          />
+        )}
       </div>
     </div>
   )
