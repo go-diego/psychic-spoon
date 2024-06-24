@@ -4,15 +4,17 @@ const Content = ({
   children,
   empty,
   emptyMessage = 'Nothing to see here',
+  className,
 }: {
   error?: string | null
   loading?: boolean
   children: React.ReactNode
   empty?: boolean
   emptyMessage?: string
+  className?: string
 }) => {
   return (
-    <div>
+    <div className={className}>
       {empty ? (
         <p>{emptyMessage}</p>
       ) : (

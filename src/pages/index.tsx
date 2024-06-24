@@ -1,7 +1,7 @@
 import FeaturedEducatorSection from '@/components/featured-educator-section'
 import { snakeCase } from 'lodash'
 
-const FEATURED_EDUCATOR = 'John Doe'
+const FEATURED_EDUCATOR = 'John Smith'
 const featuredEducatorId = snakeCase(FEATURED_EDUCATOR)
 
 export default function Home() {
