@@ -30,17 +30,29 @@ export default function VideoDisplay({
       >
         <span className="sr-only">View Video</span>
       </Link>
-      <img
-        src={
-          isYoutubeVideo
-            ? oembedData?.thumbnail_url ?? DEFAULT_THUMBNAIL
-            : DEFAULT_THUMBNAIL
-        }
-        alt="Video Thumbnail"
-        width={400}
-        height={225}
-        className="object-cover w-full aspect-video group-hover:opacity-80 transition-opacity"
-      />
+      {isYoutubeVideo ? (
+        <img
+          src={
+            isYoutubeVideo
+              ? oembedData?.thumbnail_url ?? DEFAULT_THUMBNAIL
+              : DEFAULT_THUMBNAIL
+          }
+          alt="Video Thumbnail"
+          width={400}
+          height={225}
+          className="object-cover w-full aspect-video group-hover:opacity-80 transition-opacity"
+        />
+      ) : video_url ? (
+        <video src={video_url} className=" aspect-video" />
+      ) : (
+        <img
+          src={DEFAULT_THUMBNAIL}
+          alt="Video Thumbnail"
+          width={400}
+          height={225}
+          className="object-cover w-full aspect-video group-hover:opacity-80 transition-opacity"
+        />
+      )}
       <div className="mt-3 space-y-1 p-1">
         <h3 className="font-bold">{title}</h3>
         <p className="text-muted-foreground line-clamp-2">{description}</p>

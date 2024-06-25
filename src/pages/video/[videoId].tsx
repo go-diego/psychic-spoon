@@ -9,7 +9,7 @@ import { GetServerSidePropsContext } from 'next'
 import CommentsSection from '@/components/comments-section'
 
 export default function VideoPage({
-  video: { title, id: videoId, description },
+  video: { title, id: videoId, description, video_url },
   ytVideoId,
 }: {
   video: Video
@@ -20,7 +20,7 @@ export default function VideoPage({
       <div className="flex-col sm:flex-row flex gap-4 flex-1">
         <div className="w-full sm:w-[60%] flex flex-col gap-4">
           <div className="aspect-video">
-            {ytVideoId && (
+            {ytVideoId ? (
               <iframe
                 id={ytVideoId}
                 allowFullScreen
@@ -30,6 +30,8 @@ export default function VideoPage({
                 height="100%"
                 src={makeYouTubeEmbedUrl(ytVideoId)}
               />
+            ) : (
+              <video src={video_url} controls className="w-full h-full" />
             )}
           </div>
           <h1 className="text-4xl font-bold">{title}</h1>
